@@ -36,14 +36,19 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+hypothesis = sigmoid(X*theta); % should be outlabelsize * 1
+ 
+J = sum(-y.*log(hypothesis)-(1-y).*log(1-hypothesis))/m;
 
+J_reg = lambda*sum(theta(2:end).^2)./(2*m);
 
+J = J + J_reg;
 
+grad = grad + (sum((hypothesis - y).*X, 1)/m)';
 
+grad_reg = lambda*([zeros(1,1);theta(2:end)])./m;
 
-
-
-
+grad = grad + grad_reg;
 
 % =============================================================
 

@@ -37,7 +37,7 @@ X = [ones(m, 1) X];
 % Example Code for fmincg:
 %
 %     % Set Initial theta
-%     initial_theta = zeros(n + 1, 1);
+%     initial_theta = zeros(n + 1, num_labels);
 %     
 %     % Set options for fminunc
 %     options = optimset('GradObj', 'on', 'MaxIter', 50);
@@ -48,6 +48,16 @@ X = [ones(m, 1) X];
 %         fmincg (@(t)(lrCostFunction(t, X, (y == c), lambda)), ...
 %                 initial_theta, options);
 %
+
+% 根据 y 值转换为对应矩阵数值
+y1 = eye(10)(y,:);
+
+initial_theta = zeros(n + 1, 1);
+options = optimset('GradObj', 'on', 'MaxIter', 50);
+
+for currentLabel=1:num_labels
+	all_theta(currentLabel, :) = fmincg( @(t)(lrCostFunction(t, X, (y == currentLabel), lambda)), initial_theta, options);
+end        	
 
 
 

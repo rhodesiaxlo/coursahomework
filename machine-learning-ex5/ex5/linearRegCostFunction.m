@@ -21,13 +21,14 @@ grad = zeros(size(theta));
 
 
 
+J = sum((X*theta -  y ).^2)./(2*m);
+J_reg = lambda*sum(theta(2:end,:).^2)./(2*m);
+J = J + J_reg;
 
+grad = grad + sum((X*theta - y).*X, 1)'./(m);
+grad_reg = lambda.*[zeros(1,1);theta(2:end,:)]./(m);
 
-
-
-
-
-
+grad  = grad + grad_reg;
 
 
 % =========================================================================

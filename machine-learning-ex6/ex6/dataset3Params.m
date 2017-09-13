@@ -23,8 +23,20 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-
-
+mini = 1000;
+mini2 =0;
+for i = [0.01,0.03,0.1,0.3,1,3,10,30]
+	for j = [0.01,0.03,0.1,0.3,1,3,10,30]
+		model= svmTrain(X, y, i, @(x1, x2) gaussianKernel(x1, x2, j)); 
+		predictions = svmPredict(model, Xval);
+		mini2 = mean(double(predictions ~= yval));
+		if (mini2 < mini)
+			C = i
+			sigma = j
+			mini = mini2
+		endif
+	end
+end
 
 
 

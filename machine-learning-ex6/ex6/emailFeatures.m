@@ -49,7 +49,9 @@ x = zeros(n, 1);
 %
 
 
-
+x = eye(n)(word_indices,:);
+x = sum(x, 1);
+x = x>0;
 
 
 
